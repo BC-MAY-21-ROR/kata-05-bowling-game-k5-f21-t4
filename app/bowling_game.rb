@@ -10,27 +10,12 @@ class BowlingGame
     @board[9][2] = 0 if @board[9][2].nil?
   end
 
-  def game
-    @board.size.times { |frame| 2.times { |turn| count_record_per_turn(frame, turn) } }
-  end
-
-  def count_record_per_turn(frame, turn)
-    record_knock_down(frame, turn, make_hit(frame, turn))
-    last_frame(frame) if frame == 9
-    update_results if frame < 10
-  end
-
   def record_knock_down(frame, turn, pins_knock_down)
     @board[frame][turn] = pins_knock_down
   end
 
   def last_frame(frame)
     (record_knock_down(frame, 2, rand(0..10)) if spare?(frame) || strike?(frame))
-  end
-
-  def update_results
-    10.times { |frame| record_per_frame(frame) }
-    @result[9] += @board[9][2]
   end
 
   def record_per_frame(frame)
