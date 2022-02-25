@@ -2,6 +2,7 @@
 
 require 'rspec'
 require_relative '../app/bowling_game'
+require_relative '../app/main'
 
 describe BowlingGame do
   game = BowlingGame.new([[0, 1], [2, 8], [10, 0], [4, 3], [7, 3], [2, 1], [3, 5], [5, 5], [7, 1], [10, 0]])
@@ -23,7 +24,8 @@ describe BowlingGame do
   game_two = BowlingGame.new([[1, 4], [4, 5], [6, 4], [5, 5], [10, 0], [0, 1], [7, 3], [6, 4], [10, 0], [2, 8, 6]])
   it 'check update_results' do
     result = [5, 14, 29, 49, 60, 61, 77, 97, 117, 133]
-    game_two.update_results
+    obj_game = Game.new(game_two)
+    obj_game.update_results
     expect(game_two.result).to eq result
   end
 end

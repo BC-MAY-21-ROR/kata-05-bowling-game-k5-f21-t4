@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require './app/bowling_game'
 
-class ScoreHead 
-  
+# Class to show the game score
+class ScoreHead
   def self.record_per_turn(frames)
     frames.each { |frame| print "| #{frame[0]} - #{frame[1]} " }
     puts ''
@@ -12,14 +14,8 @@ class ScoreHead
     puts ''
   end
 
-  def self.show(board , result)
+  def self.show(board, result)
     record_per_turn(board)
     record_per_frame(result)
   end
-
 end
-
-game = BowlingGame.new
-game.game
-
-ScoreHead.show(game.board, game.result)
