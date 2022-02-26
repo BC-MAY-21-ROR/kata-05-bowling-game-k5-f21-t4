@@ -2,7 +2,7 @@
 
 require 'rspec'
 require_relative '../app/bowling_game'
-require_relative '../app/main'
+require './app/game'
 
 describe BowlingGame do
   game = BowlingGame.new([[0, 1], [2, 8], [10, 0], [4, 3], [7, 3], [2, 1], [3, 5], [5, 5], [7, 1], [10, 0]])

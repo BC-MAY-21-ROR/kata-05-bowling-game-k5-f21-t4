@@ -47,12 +47,12 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2022-02-25 15:35:25 -0600'>2022-02-25 15:35:25 -0600</time>
+          Never committed
         
       </span>
     </div>
     <div>
-      <h3><small>spec /</small> bowling_game_spec.rb</h3>
+      <h3><small>app /</small> game.rb</h3>
     </div>
   </div>
   <!--End Page Title -->
@@ -62,22 +62,22 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-1">
-            <div class="rating b big">
-              B
+            <div class="rating a big">
+              A
             </div>
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">31</span><small> lines of codes</small></div>
-              <div><span class="metric">0</span><small> methods</small></div>
+              <div><span class="metric">41</span><small> lines of codes</small></div>
+              <div><span class="metric">6</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">N/A</span><small> complexity/method</small></div>
-              <div><span class="metric">3</span><small> churn</small></div>
+              <div><span class="metric">6.5</span><small> complexity/method</small></div>
+              <div><span class="metric">0</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
-              <div><span class="metric">42.89</span><small> complexity</small></div>
-              <div><span class="metric">74</span><small> duplications</small></div>
+              <div><span class="metric">38.93</span><small> complexity</small></div>
+              <div><span class="metric">0</span><small> duplications</small></div>
             </div>
           </div>
         </div>
@@ -88,8 +88,8 @@
             <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
             <li class="active">
               <a href="#" id="toggle-smells" class="toggle-button button">
-                1
-                smell
+                2
+                smells
               </a>
             </li>
           </ul>
@@ -99,33 +99,43 @@
 
     <code class="prettyprint linenums lang-ruby file-code js-file-code"># frozen_string_literal: true
 
-require &#39;rspec&#39;
-require_relative &#39;../app/bowling_game&#39;
-require &#39;./app/game&#39;
+require &#39;./app/bowling_game&#39;
+require &#39;./app/scorehead&#39;
 
-describe BowlingGame do
-  game = BowlingGame.new([[0, 1], [2, 8], [10, 0], [4, 3], [7, 3], [2, 1], [3, 5], [5, 5], [7, 1], [10, 0]])
+# Class to start the game
+class Game
+  attr_reader :bowling_game
 
-  it &#39;check spare? method&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="bowling_game_spec.html#L10" class="js-smell-location">0</a>                  <a href="bowling_game_spec.html#L17" class="js-smell-location">1</a>                  </div>  </li></ol>
-    result = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0]
-    test = []
-    10.times { |frame| game.spare?(frame) ? test.push(1) : test.push(0) }
-    expect(test).to eq result
+  def initialize(bowling_game)
+    @bowling_game = bowling_game
   end
 
-  it &#39;check strike? method&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="bowling_game_spec.html#L10" class="js-smell-location">0</a>                  <a href="bowling_game_spec.html#L17" class="js-smell-location">1</a>                  </div>  </li></ol>
-    result = [0, 0, 1, 0, 0, 0, 0, 0, 0, 1]
-    test = []
-    10.times { |frame| game.strike?(frame) ? test.push(1) : test.push(0) }
-    expect(test).to eq result
+  def automatic_game
+    @bowling_game.board.size.times { |frame| 2.times { |turn| count_record_per_turn(frame, turn) } }<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Nested-Iterators.md" target="_blank"><b>NestedIterators</b></a>        </span>      </div>      <span>Game#automatic_game contains iterators nested 2 deep</span>          </div>  </li></ol>
   end
 
-  game_two = BowlingGame.new([[1, 4], [4, 5], [6, 4], [5, 5], [10, 0], [0, 1], [7, 3], [6, 4], [10, 0], [2, 8, 6]])
-  it &#39;check update_results&#39; do
-    result = [5, 14, 29, 49, 60, 61, 77, 97, 117, 133]
-    obj_game = Game.new(game_two)
-    obj_game.update_results
-    expect(game_two.result).to eq result
+  def user_game
+    @bowling_game.board.size.times do |frame|
+      2.times { |turn| user_knock_down(frame, turn) }<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden="true"></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Nested-Iterators.md" target="_blank"><b>NestedIterators</b></a>        </span>      </div>      <span>Game#user_game contains iterators nested 2 deep</span>          </div>  </li></ol>
+    end
+  end
+
+  def user_knock_down(frame, turn)
+    print &#39;press enter&#39;
+    gets
+    count_record_per_turn(frame, turn)
+    ScoreHead.show(@bowling_game.board, @bowling_game.result, frame + 1)
+  end
+
+  def count_record_per_turn(frame, turn)
+    @bowling_game.record_knock_down(frame, turn, @bowling_game.make_hit(frame, turn))
+    @bowling_game.last_frame(frame) if frame == 9
+    update_results
+  end
+
+  def update_results
+    10.times { |frame| @bowling_game.record_per_frame(frame) }
+    @bowling_game.result[9] += @bowling_game.board[9][2]
   end
 end
 </code>

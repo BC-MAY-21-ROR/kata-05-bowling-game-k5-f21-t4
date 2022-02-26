@@ -47,7 +47,7 @@
     <div class="file-time">
       <span class="committed-at">
         
-          Updated <time class='js-timeago' datetime='2022-02-23 18:57:36 -0600'>2022-02-23 18:57:36 -0600</time>
+          Updated <time class='js-timeago' datetime='2022-02-25 15:32:02 -0600'>2022-02-25 15:32:02 -0600</time>
         
       </span>
     </div>
@@ -68,12 +68,12 @@
           </div>
           <div class="code-statistics col-md-11">
             <div class="col-md-3">
-              <div><span class="metric">12</span><small> lines of codes</small></div>
+              <div><span class="metric">9</span><small> lines of codes</small></div>
               <div><span class="metric">0</span><small> methods</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">N/A</span><small> complexity/method</small></div>
-              <div><span class="metric">2</span><small> churn</small></div>
+              <div><span class="metric">4</span><small> churn</small></div>
             </div>
             <div class="col-md-3">
               <div><span class="metric">0.0</span><small> complexity</small></div>
@@ -100,15 +100,12 @@
     <code class="prettyprint linenums lang-ruby file-code js-file-code"># frozen_string_literal: true
 
 require &#39;./app/bowling_game&#39;
+require &#39;./app/scorehead&#39;
+require &#39;./app/game&#39;
 
-# frozen_string_literal: true
-
-game = BowlingGame.new
-
-game.game
-puts game.board.inspect
-
-game.show_results
+bowling = BowlingGame.new
+game = Game.new(bowling)
+game.user_game
 </code>
   </div>
 </div>
